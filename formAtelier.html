@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier</title>
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+
+</head>
+<body>
+    <script>
+        var spinner = $('#loader');
+        const scriptURLC ='https://script.google.com/macros/s/AKfycbwRb488MX4u4U5-hZbTbsfVCm_8xA1gmLlCZMICTzWgq1JUz9kFGeKSzQfQBubZeV-9GA/exec'
+        const serverlessForm = document.forms['serverless-form'];
+
+        serverlessForm.addEventListener('submit', e => {
+            e.preventDefault();
+            spinner.show();
+
+
+            fetch(scriptURLC, {
+                    method: 'POST',
+                    body: new FormData(serverlessForm)
+                })
+                .then(res => {
+
+                    console.log(res);
+                    spinner.hide();
+
+                    if (res['status'] == 200) {
+                        swal("Your form has been submitted!",
+                            "We will get back to you soon. Have a great day!", "success");
+                        return true;
+
+                    } else {
+                        swal("Something went wrong!", "Please try after some time", "error");
+
+                    }
+                    document.getElementById('submitForm').classList.remove('loading');
+                })
+                .catch(error => {
+
+                    swal("Something went wrong!", "Please try after some time", "error");
+                    // todo enable submit button
+
+                })
+        });
+    </script>
+    <button ></button>
+    <img src="im1.svg" alt="fifej_head">
+    <form action="thanks.html" id="fifej_atelier" name="fifej" method="POST">
+        <div class="username">
+            <label for="name">الإسم و اللقب</label> <br>
+            <input type="text" id="name" name="nom" required="required">
+        </div>
+
+        <div class="cin">
+            <label for="idNumber">رقم بطاقة تعريف الوطنية</label> <br>
+            <input type="text" id="idNumber" name="CIN" required="required">
+        </div>
+
+        <div class="edu">
+            <label for="educationlevel">المستوى العلمي - الاختصاص</label> <br>
+            <input type="text" id="educationlevel" name="niveau d'éducation" required="required">
+        </div>
+
+        <div class="fac">
+            <label for="institute">المؤسسة التعليمية</label> <br>
+            <input type="text" id="institute" name="établissement d'enseignement" required="required">
+        </div>
+
+        <div class="city">
+            <label for="city">المدينة</label> <br>
+            <input type="text" id="city" name="ville" required="required">
+        </div>
+
+        <div class="adress">
+            <label for="adress">العنوان</label> <br>
+            <input type="text" id="adress" name="adresse" required="required">
+        </div>
+
+        <div class="phone">
+            <label for="phone">رقم الهاتف</label> <br>
+            <input type="text" id="phone" name="téléphone" required="required">
+        </div>
+
+        <div class="email">
+            <label for="email">البريد الإلكتروني</label> <br>
+            <input type="text" id="email" name="adresse email" required="required">
+        </div>
+
+        <div class="workshop">
+            <label for="workshop">الورشة المراد الإنخراط فيها</label> <br>
+                <select name="atelier" id="workshop">
+                <option value="photography">تصوير</option>
+                <option value="screenplay">كتابة سيناريو</option>   
+                <option value="director">إخراج</option>
+                <option value="editing">تركيب (montage)</option>
+                <option value="sound">تقنيات صوت</option>
+                <option value="lightening">تقنيات إضاءة</option>
+                <option value="actor">إدارة ممثل</option>
+                <option value="3D">تقنيات (3D)</option>
+            </select>
+        </div>
+
+        <div class="check">
+            <label for="accept_terms">ألتزم بحضور جميع حصص الورشة حسب البرنامج المقرر من طرف ادارة المهرجان طيلة أيام المهرجان في كنف الانضباط و المسؤولية </label> <br>
+            <input type="checkbox" id="accept_terms" required="required">
+        </div>
+
+        <button type="submit" formaction="">الإنخراط</button>
+    </form>
+</body>
+</html>
